@@ -8,7 +8,7 @@
 *Date*: November 1st, 2023
 
 Solutions to F2023 Midterm 1. The different scripts in the examples/ directory are labelled by question number.
-One function, linalg.solve() was developed in class is used to verify the Naive Gaussian Elimination solution computed with an Excel Spreadsheet.
+One function, linalg.solve(), was developed in class and is used to verify the Naive Gaussian Elimination solution computed with an Excel Spreadsheet.
 This function is located in the src/midterm_1/ directory.
 
 To use the code developed in this repository, refer to the requirements.txt file and install the listed package dependencies with the command:
