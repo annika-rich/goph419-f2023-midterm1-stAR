@@ -23,25 +23,30 @@ def main():
     print(f"The relative error in Earth's orbital distance (D): {error_D:0.5e}\n")
 
     # expected value of Earth's black body Temperature T
-    T = (L * (1 - a) ** 0.25) / (16 * np.pi * sigma * D ** 2) # Kelvins
+    partial_L = (-L) / (64 * np.pi * ((1 -a) ** 0.75) * sigma * D ** 2)
+    partial_a = ((1 - a) ** 0.25) / (16 * np.pi * sigma * D ** 2)
+    partial_D = (-L * (1-a) ** 0.25) / (8 * np.pi * sigma * D ** 3)
+
+    T_true = (L * (1 - a) ** 0.25) / (16 * np.pi * sigma * D ** 2) # Kelvins
+    T = T_true + partial_L + partial_a + partial_D
     C = T - 272.15 # convert to Celsius
     print(f"The expected value of Earth's black body temperature (T) in Kelvin:  {T:0.10e}")
     print(f"The expected value of Earth's black body temperature (T) in Celsius: {C:0.10e}\n")
 
     # Total Error in T (plus contributions from errors in L, a, D)
-    partial_L = (-L) / (64 * np.pi * ((1 -a) ** 0.75) * sigma * D ** 2)
-    print(f"The error contributed by L: {np.abs(partial_L)}")
+    contr_L = np.abs(partial_L) * del_L
+    print(f"The error contributed by L: {contr_L:0.5e}")
 
-    partial_a = ((1 - a) ** 0.25) / (16 * np.pi * sigma * D ** 2)
-    print(f"The error contributed by a: {np.abs(partial_a)}")
+    contr_a = np.abs(partial_a) * del_a
+    print(f"The error contributed by a: {contr_a:0.5e}")
 
-    partial_D = (-L * (1-a) ** 0.25) / (8 * np.pi * sigma * D ** 3)
-    print(f"The error contributed by D: {np.abs(partial_D)}\n")
+    contr_D = np.abs(partial_D) * del_D
+    print(f"The error contributed by D: {contr_D:0.5e}\n")
 
-    total_error = np.abs(partial_L) * del_L + np.abs(partial_a) * del_a + np.abs(partial_D) * del_D
-    relative_error = total_error / T # normalize error by true value
-    print(f"Total error in T: {total_error:0.10e}")
-    print(f"Relative error:   {relative_error:0.10e}")
+    total_error = contr_L + contr_a + contr_D
+    relative_error = ((T_true - T) / T_true) * 100 # normalize error by true value
+    print(f"Total error in T:   {total_error:0.10e}")
+    print(f"Relative error (%): {relative_error}")
 
     # Relative Error in T
     
