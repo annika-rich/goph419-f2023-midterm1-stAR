@@ -24,7 +24,7 @@ def main():
     K_transpose = np.transpose(K)
     print(f"Transpose of coefficient matrix (K^T): \n{K_transpose}\n")
 
-    print("Therefore [K] = [K^T]\n")
+    print("Therefore [K] = [K^T] and can be used for Cholesky decomposition.\n")
 
     #3 3.c) K^-1
     # compute the inverse of K
@@ -37,7 +37,7 @@ def main():
 
     B = np.linalg.solve(inv, K)
     print(f"[K]^-1[K] = \n{A}\n")
-    print("[K][K]^-1 = [K]^-1[K]\n")
+    print("[K][K]^-1 = [K]^-1[K]\nTherefore, the correct inverse matrix of [K] was computed.\n")
     
     # Condition number using [K] and [K]^-1
     norm_K = np.linalg.norm(K)
@@ -55,6 +55,6 @@ def main():
     cond_I = np.linalg.cond(I)
     print(f"The condition number of [I]: {cond_I}\n")
 
-
+    print(f"The CN[K] ({cn}) >> CN[I] ({cond_I}).\nTherefore, the system is ill-conditioned and will magnify errors and uncertainty in [K].\n")
 if __name__ == "__main__":
     main()

@@ -13,6 +13,7 @@ def main():
     del_L = 0.004e26
     error_L = del_L / L
     print(f"The relative error in solar luminosity (L):         {error_L:0.5e}")
+    
     # Relative Error in albedo, a
     a = 0.306
     del_a = 0.001
@@ -26,11 +27,13 @@ def main():
     print(f"The relative error in Earth's orbital distance (D): {error_D:0.5e}\n")
 
     # expected value of Earth's black body Temperature T
-    partial_L = (-L) / (64 * np.pi * ((1 -a) ** 0.75) * sigma * D ** 2)
-    partial_a = ((1 - a) ** 0.25) / (16 * np.pi * sigma * D ** 2)
+    partial_a = (-L) / (64 * np.pi * ((1 -a) ** 0.75) * sigma * D ** 2)
+    partial_L = ((1 - a) ** 0.25) / (16 * np.pi * sigma * D ** 2)
     partial_D = (-L * (1-a) ** 0.25) / (8 * np.pi * sigma * D ** 3)
 
+    # True value of T
     T_true = (L * (1 - a) ** 0.25) / (16 * np.pi * sigma * D ** 2) # Kelvins
+    # 1st order Taylor Series Sum of T(xi +1)
     T = T_true + partial_L + partial_a + partial_D
     C = T - 272.15 # convert to Celsius
     print(f"The expected value of Earth's black body temperature (T) in Kelvin:  {T:0.10e}")
@@ -50,19 +53,6 @@ def main():
     relative_error = ((T_true - T) / T_true) * 100 # normalize error by true value
     print(f"Total error in T:          {total_error:0.10e}")
     print(f"Relative error (%):        {relative_error}")
-    #print(f"Normalized relative error: {total_error/T_true}")
 
-    # Check sensitivity of function with condition number
-    # Jacobian matrix
-    j_matrix = np.array([del_L, del_a, del_D])
-    norm_j_matrix = np.linalg.norm(j_matrix)
-    # vector of input parameters x
-    x_vector = np.array([L, a, D])
-    norm_x_vector = np.linalg.norm(x_vector)
-    # vector of output values (scalar)
-    f_vector = T_true
-    cn = norm_j_matrix * norm_x_vector / f_vector
-    print(f"Condition number:          {cn:0.5e}")
-    
 if __name__ == "__main__":
     main()
