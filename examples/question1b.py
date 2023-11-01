@@ -45,11 +45,21 @@ def main():
 
     total_error = contr_L + contr_a + contr_D
     relative_error = ((T_true - T) / T_true) * 100 # normalize error by true value
-    print(f"Total error in T:   {total_error:0.10e}")
-    print(f"Relative error (%): {relative_error}")
+    print(f"Total error in T:          {total_error:0.10e}")
+    print(f"Relative error (%):        {relative_error}")
+    #print(f"Normalized relative error: {total_error/T_true}")
 
-    # Relative Error in T
+    # Check sensitivity of function with condition number
+    # Jacobian matrix
+    j_matrix = np.array([del_L, del_a, del_D])
+    norm_j_matrix = np.linalg.norm(j_matrix)
+    # vector of input parameters x
+    x_vector = np.array([L, a, D])
+    norm_x_vector = np.linalg.norm(x_vector)
+    # vector of output values (scalar)
+    f_vector = T_true
+    cn = norm_j_matrix * norm_x_vector / f_vector
+    print(f"Condition number:          {cn:0.5e}")
     
-
 if __name__ == "__main__":
     main()
