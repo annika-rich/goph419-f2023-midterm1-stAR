@@ -19,17 +19,17 @@ def main():
 
     # Scale up matrix by k^4
     K = k * K1
-    print(f"Coefficient matrix (K): \n{K}\n")
+    print(f"Coefficient matrix [K]: \n{K}\n")
 
     K_transpose = np.transpose(K)
-    print(f"Transpose of coefficient matrix (K^T): \n{K_transpose}\n")
+    print(f"Transpose of coefficient matrix [K^T]: \n{K_transpose}\n")
 
     print("Therefore [K] = [K^T] and can be used for Cholesky decomposition.\n")
 
     #3 3.c) K^-1
     # compute the inverse of K
     inv = np.linalg.inv(K)
-    print(f"The inverse matrix of K is:\n {inv}\n")
+    print(f"The inverse matrix of [K] is:\n {inv}\n")
 
     # check if it's the inverse
     A = np.linalg.solve(K,inv)
