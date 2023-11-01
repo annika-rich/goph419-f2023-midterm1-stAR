@@ -1,8 +1,11 @@
 # Midterm 2023 Question 1
+# Date: Tuesday October 31st, 2023
 
 import numpy as np
 
 def main():
+    "This script calculates and prints answers to Question 1 for Midterm 1, GOPH419, F2023"
+
     sigma = 6.670374419e-8 # Stefan-Boltzmann constant
 
     # Relative Error in Solar Luminosity, L
