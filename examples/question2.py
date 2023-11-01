@@ -23,7 +23,7 @@ def main():
     ], 
     dtype = float,
     )
-    print(f"Scaled Coefficient Matrix (K): \n{K}\n") # check coefficient matrix
+    print(f"Scaled Coefficient Matrix [K]: \n{K}\n") # check coefficient matrix
     K_coeff = k * K # Non-normalized coefficient matrix
     print(f"Coefficient Matrix [K]: \n{K_coeff}\n")
 
@@ -40,7 +40,7 @@ def main():
     ], 
     dtype = float,
     )
-    print(f"Scaled Modified Coefficient Matrix (K1): \n{K1}\n")
+    print(f"Scaled Modified Coefficient Matrix [K1]: \n{K1}\n")
     #compute determinant of K1 to see if system has a unique solution
     det_K1 = np.linalg.det(K1)
     print(f"The determinant of K1: {det_K1}\n")
@@ -50,7 +50,7 @@ def main():
     print(f"Right-hand side vector, F: {F}\n")
     K2 = k * K1 # Multiply entire matrix by k to determine true displacements
 
-    print(f"Coefficient matrix, (K2): \n{K2}\n") # Check new coefficient matrix
+    print(f"Coefficient matrix, [K2]: \n{K2}\n") # Check new coefficient matrix
     u = linalg.solve(K2, F) # get unique solution to system
     print(f"Naive Gaussian Elimation solution of unknown displacements: {u}\n")
 
